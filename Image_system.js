@@ -2,6 +2,7 @@ import express from "express";
 import multer from "multer";
 import fs from "node:fs/promises";
 import path from "node:path";
+import { randomUUID } from "node:crypto";
 
 const app = express();
 const PORT = 3000;
@@ -18,8 +19,8 @@ const storage = multer.diskStorage({
   },
 
   filename: (req, file, cb) => {
-    cb(null, Date.now() + "-" + path.basename(file.originalname));
-  },
+  cb(null, randomUUID() + "-" + path.basename(file.originalname));
+},
 });
 
 const upload = multer({
